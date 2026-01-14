@@ -9,6 +9,7 @@ return {
 			{ "<leader>g", group = "Go ..." },
 			{ "<leader>S", group = "Sessions" },
 			{ "<leader>t", group = "Todo" },
+			{ "<leader>G", group = "Gitsigns" },
 		})
 	end,
 }
