@@ -6,6 +6,7 @@ return {
     },
     config = function()
         local dotnet = require("easy-dotnet")
+
         -- Options are not required
         dotnet.setup({
             lsp = {

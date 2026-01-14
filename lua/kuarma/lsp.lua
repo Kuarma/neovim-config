@@ -10,7 +10,7 @@ local capabilities = {
 capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
 vim.fn.sign_define("DapBreakpoint", {
-	text = "📛",
+	text = "🔴",
 })
 
 vim.lsp.config("*", {
@@ -18,7 +18,8 @@ vim.lsp.config("*", {
 })
 
 vim.diagnostic.config({
-	virtual_text = {
+	virtual_lines = {
+		enabled = true,
 		spacing = 2,
 	},
 
