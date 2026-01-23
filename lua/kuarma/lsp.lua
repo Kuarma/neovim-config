@@ -18,8 +18,7 @@ vim.lsp.config("*", {
 })
 
 vim.diagnostic.config({
-	virtual_lines = {
-		enabled = true,
+	virtual_text = {
 		spacing = 2,
 	},
 

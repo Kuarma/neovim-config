@@ -30,18 +30,13 @@ return {
 			},
 		})
 
-		vim.keymap.set("n", "<leader>dc", function()
-			dap.terminate()
-			dap.clear_breakpoints()
-		end, {
-			desc = "Terminate and clear breakpoints",
-		})
-
+		--TODO: Clear breakpoints keymap
 		vim.keymap.set("n", "<F1>", dapui.toggle, { desc = "Toggle Debug UI" })
 		vim.keymap.set("n", "<F5>", dap.continue, { desc = "Start/continue debugging" })
 		vim.keymap.set("n", "<F2>", dap.step_over, { desc = "Step over" })
 		vim.keymap.set("n", "<F11>", dap.step_into, { desc = "Step into" })
 		vim.keymap.set("n", "<F12>", dap.step_out, { desc = "Step out" })
+		vim.keymap.set("n", "<leader>dc", dap.terminate, { desc = "Stop debugging" })
 		vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
 		vim.keymap.set("n", "<leader>do", dap.step_over, { desc = "Step over (alt)" })
 		vim.keymap.set("n", "<leader>dC", dap.run_to_cursor, { desc = "Run to cursor" })
