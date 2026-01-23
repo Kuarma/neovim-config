@@ -25,18 +25,4 @@ return {
 			"neovim/nvim-lspconfig",
 		},
 	},
-	{
-		"folke/lazydev.nvim",
-		ft = "lua",
-		opts = {
-			library = {
-				{
-					path = "LazyVim",
-					words = {
-						"LazyVim",
-					},
-				},
-			},
-		},
-	},
 }
