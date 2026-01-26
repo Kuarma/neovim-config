@@ -33,14 +33,14 @@ return {
 				:find()
 		end
 
-		vim.keymap.set("n", "<C-h>", function()
+		vim.keymap.set("n", "<C-q>", function()
 			toggle_telescope(harpoon:list())
 		end, { desc = "Open harpoon window" })
 	end,
 	keys = function()
 		local keys = {
 			{
-				"<leader>H",
+				"<A-h>",
 				function()
 					require("harpoon"):list():add()
 				end,
