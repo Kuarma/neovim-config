@@ -40,11 +40,11 @@ return {
 	keys = function()
 		local keys = {
 			{
-				"<A-h>",
+				"<leader>sh",
 				function()
 					require("harpoon"):list():add()
 				end,
-				desc = "Harpoon File",
+				desc = "Harpoon list sessions",
 			},
 			{
 				"<leader>h",
