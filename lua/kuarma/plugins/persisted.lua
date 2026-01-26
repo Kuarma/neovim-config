@@ -15,9 +15,8 @@ return {
 	},
 	mappings = {
         --stylua: ignore start
-		vim.keymap.set("n", "<leader>Sl", "<cmd>SessionLoad<cr><cmd>SessionStart<cr>", { desc = "Session: Load" }),
-		vim.keymap.set("n", "<leader>Ss", "<cmd>SessionSave<cr><cmd>SessionStart<cr><cmd>lua print('session saved')<cr>", { desc = "Session: Save" }),
-		vim.keymap.set("n",	"<leader>Sq", "<cmd>SessionStop<cr><cmd>lua print('stopped recording session')<cr>",	{ desc = "Session: Quit" }),
+		vim.keymap.set("n", "<leader>Sl", "<cmd>Telescope persisted<cr>", { desc = "Session: Load" }),
+		vim.keymap.set("n", "<leader>Ss", "<cmd>Persisted save<cr><cmd>lua print('session saved')<cr>", { desc = "Session: Save" }),
 		--stylua: ignore end
 	},
 }
