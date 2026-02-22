@@ -46,6 +46,7 @@ set("n", "gd", function()	vim.lsp.buf.definition() end, { desc = "Go to definiti
 set("n", "gI", function()	vim.lsp.buf.implementation() end, { desc = "Go to implementation" })
 set("n", "<leader><leader>n", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { desc = "Substitute word in current buffer" })
 set({ "n", "v" }, "<leader>r", function()	vim.lsp.buf.rename() end, { desc = "Global rename" })
+set({ "n", "v" }, ".", "<cmd>b#<cr>", { desc = "Go back to last opened buffer" })
 --stylua: ignore end
 
 -- Screenkeys
