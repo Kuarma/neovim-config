@@ -47,8 +47,6 @@ opt.shiftwidth = 4
 
 opt.more = false
 
-opt.foldmethod = "manual"
-
 opt.title = true
 opt.titlestring = '%t%( %M%)%( (%{expand("%:~:h")})%)%a (nvim)'
 
