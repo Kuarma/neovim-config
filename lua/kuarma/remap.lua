@@ -1,6 +1,7 @@
 -- ==========================================================
 -- Helpers
 -- ==========================================================
+
 local function select_all()
 	-- `ggVG`, but nothing is added to jumplist, and cursor position is restored on exit from visual mode
 	local bufnr = 0
@@ -28,8 +29,6 @@ end
 -- ==========================================================
 
 local set = vim.keymap.set
-
-vim.g.mapleader = " "
 
 -- General
 set({ "n", "v", "i" }, "<C-a>", select_all, { desc = "select all" })
