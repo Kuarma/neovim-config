@@ -37,6 +37,7 @@ return {
 				"javascript",
 				"jsdoc",
 				"json",
+				"rust",
 				"json5",
 				"lua",
 				"c_sharp",
@@ -62,12 +63,19 @@ return {
 
 			require("nvim-treesitter").install(ensure_installed)
 
-			-- vim.api.nvim_create_autocmd('FileType', {
-			-- 	pattern = ensure_installed,
-			-- 	callback = function() vim.treesitter.start() end,
-			-- 	vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-			-- 	vim.wo[0][0].foldmethod = 'expr'
-			-- })
+			vim.api.nvim_create_autocmd('FileType', {
+				pattern = '*',
+				callback = function() 
+					local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
+					if lang then pcall(vim.treesitter.start)
+					else
+						vim.notify("Parser not found") end
+
+					vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+					vim.opt.foldmethod = 'expr'
+					vim.opt.foldlevel = 10
+				end
+			})
 
 		end
 	},
