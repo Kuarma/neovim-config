@@ -21,8 +21,10 @@ return {
 			"mason-org/mason-lspconfig.nvim",
 			"mason-org/mason.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			"saghen/blink.cmp",
 		},
 		config = function()
+			-- Lsp / Mason setup
 			require("mason").setup()
 			require("mason-lspconfig").setup({
 				automatic_enable = true,
@@ -44,6 +46,8 @@ return {
 					},
 				},
 			}
+
+			capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
 			-- Set global capabilities for all LSP servers
 			vim.lsp.config("*", {
