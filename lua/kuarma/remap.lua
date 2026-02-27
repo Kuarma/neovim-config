@@ -30,6 +30,8 @@ end
 
 local set = vim.keymap.set
 
+vim.g.mapleader = " "
+
 -- General
 set({ "n", "v", "i" }, "<C-a>", select_all, { desc = "select all" })
 
