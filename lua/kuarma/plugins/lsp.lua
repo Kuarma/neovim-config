@@ -23,6 +23,51 @@ return {
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 		},
 		config = function()
+			require("mason").setup()
+			require("mason-lspconfig").setup({
+				automatic_enable = true,
+			})
+			require("mason-tool-installer").setup({
+				ensure_installed = {
+					{ "lua-language-server", version = "3.16.4" }, -- https://github.com/folke/lazydev.nvim/issues/136
+					{ "bash-language-server", auto_update = true },
+					{ "csharp-language-server", auto_update = true },
+					{ "stylua", auto_update = true },
+				},
+			})
+
+			local capabilities = {
+				textDocument = {
+					foldingRange = {
+						dynamicRegistration = false,
+						lineFoldingOnly = true,
+					},
+				},
+			}
+
+			-- Set global capabilities for all LSP servers
+			vim.lsp.config("*", {
+				capabilities = capabilities,
+			})
+
+			vim.diagnostic.config({
+				virtual_text = true,
+				virtual_lines = false,
+
+				severity_sort = true,
+				update_in_insert = true,
+			})
+
+			vim.keymap.set("n", "<leader>Dt", function()
+				local state = not vim.diagnostic.config().virtual_text
+				vim.diagnostic.config({ virtual_text = state })
+			end, { desc = "Toggle virtual text" })
+
+			vim.keymap.set("n", "<leader>Dl", function()
+				local state = not vim.diagnostic.config().virtual_lines
+				vim.diagnostic.config({ virtual_lines = state })
+			end, { desc = "Toggle virtual lines" })
+
 			-- Conform setup
 			-- Docs: https://github.com/stevearc/conform.nvim/tree/master
 			require("conform").setup({
@@ -35,6 +80,7 @@ return {
 					lsp_format = "fallback",
 				},
 			})
+
 			vim.keymap.set("n", "<leader>f", function()
 				require("conform").format({ async = true })
 			end, { desc = "Format current buffer" })
