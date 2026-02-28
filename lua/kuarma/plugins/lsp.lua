@@ -13,10 +13,6 @@ return {
 					},
 				},
 			},
-			{
-				"j-hui/fidget.nvim",
-				opts = {},
-			},
 			"stevearc/conform.nvim",
 			"mason-org/mason-lspconfig.nvim",
 			"mason-org/mason.nvim",
