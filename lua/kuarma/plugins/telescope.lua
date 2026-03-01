@@ -3,6 +3,13 @@ return {
 	version = "*",
 	dependencies = {
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+		{ "kevinhwang91/nvim-bqf", ft = "qf" },
+		{
+			"junegunn/fzf",
+			run = function()
+				vim.fn["fzf#install"]()
+			end,
+		},
 		"nvim-telescope/telescope-media-files.nvim",
 		"nvim-telescope/telescope-ui-select.nvim",
 		"nvim-lua/plenary.nvim",
