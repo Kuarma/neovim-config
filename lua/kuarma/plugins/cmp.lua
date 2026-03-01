@@ -106,7 +106,6 @@ return {
 					TypeParameter = "󰬛",
 				},
 			},
-
 			cmdline = {
 				enabled = true,
 
