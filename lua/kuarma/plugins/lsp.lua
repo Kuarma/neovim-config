@@ -80,7 +80,7 @@ return {
 				},
 			})
 
-			vim.keymap.set("n", "<leader>f", function()
+			vim.keymap.set("n", "<leader>F", function()
 				require("conform").format({ async = true })
 			end, { desc = "Format current buffer" })
 		end,

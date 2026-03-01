@@ -31,6 +31,22 @@ return {
 			},
 			signature = { enabled = true },
 
+			sources = {
+				default = { "lsp", "easy-dotnet", "buffer", "snippets", "path" },
+
+				-- per_filetype = {
+				-- },
+				providers = {
+					["easy-dotnet"] = {
+						name = "easy-dotnet",
+						enabled = true,
+						module = "easy-dotnet.completion.blink",
+						score_offset = 10000,
+						async = true,
+					},
+				},
+			},
+
 			completion = {
 				documentation = { auto_show = true },
 				ghost_text = { enabled = true },

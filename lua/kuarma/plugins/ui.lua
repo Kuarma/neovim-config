@@ -16,4 +16,22 @@ return {
 			"rcarriga/nvim-notify",
 		},
 	},
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		keys = {
+			{
+				"<leader>?",
+				function()
+					require("which-key").show({ global = false })
+				end,
+				desc = "Buffer Local Keymaps (which-key)",
+			},
+		},
+	},
+	{
+		"NStefan002/screenkey.nvim",
+		lazy = false,
+		version = "*",
+	},
 }
