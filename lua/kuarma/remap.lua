@@ -60,3 +60,20 @@ set("i", "<A-k>", "<Esc>V:m '>-2<cr>gv=gv", { desc = "Move line up" })
 for i = 1, 9 do
 	set({ "n", "i" }, "<A-" .. i .. ">", "<Esc><cmd>tabn " .. i .. "<cr>", { desc = "Tab " .. i })
 end
+
+-- Window movement
+set("n", "<C-w>h", "<cmd>wincmd H<cr>", { desc = "window: move window left" })
+set("n", "<C-w>j", "<cmd>wincmd J<cr>", { desc = "window: move window down" })
+set("n", "<C-w>k", "<cmd>wincmd K<cr>", { desc = "window: move window up" })
+set("n", "<C-w>l", "<cmd>wincmd L<cr>", { desc = "window: move window right" })
+
+set("n", "<C-w>o", "<C-w><C-s><C-w>w", { desc = "window: new horizontal" })
+set("n", "<C-w>O", "<C-w><C-v>", { desc = "window: new vertical" })
+
+set("n", "<C-Right>", "<cmd>vertical resize -2<cr>", { desc = "window: decrease width" })
+set("n", "<C-Left>", "<cmd>vertical resize +2<cr>", { desc = "window: increase width" })
+set("n", "<C-Down>", "<cmd>resize +2<cr>", { desc = "window: decrease height" })
+set("n", "<C-Up>", "<cmd>resize -2<cr>", { desc = "window: increase height" })
+
+-- Lua
+set("v", "<leader><leader>x", ":lua<CR>", { desc = "Lua: Run sleected lua code" })
