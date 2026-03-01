@@ -29,7 +29,6 @@ return {
 				ensure_installed = {
 					{ "lua-language-server", version = "3.16.4" }, -- https://github.com/folke/lazydev.nvim/issues/136
 					{ "bash-language-server", auto_update = true },
-					{ "csharp-language-server", auto_update = true },
 					{ "stylua", auto_update = true },
 				},
 			})
