@@ -22,6 +22,9 @@ return {
 					open_variable_viewer = { lhs = "T", desc = "open variable viewer" },
 				},
 			},
+			projx_lsp = {
+				enabled = true,
+			},
 			new = {
 				project = {
 					prefix = "sln",
