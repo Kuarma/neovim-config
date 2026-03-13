@@ -1,59 +1,80 @@
------------------------------------------------------------
--- Neovim options
------------------------------------------------------------
+local utils = require("kuarma.utils")
+
 local opt = vim.opt
 
-opt.inccommand = "split"
+opt.number = true
+opt.relativenumber = false
 
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
+opt.fillchars = {
+	fold = " ",
+	foldsep = " ",
+	foldopen = "",
+	foldclose = "",
+	vert = "│",
+	eob = " ",
+	msgsep = "‾",
+	diff = "╱",
+}
+
+opt.more = true
+
+opt.wrap = false
+opt.linebreak = true
+opt.ruler = false
+
+opt.termguicolors = true
+opt.cursorline = true
+opt.culopt = "both"
+
+opt.splitbelow = true
+opt.splitright = true
+
+opt.splitkeep = "screen"
+
+opt.swapfile = false
+
+opt.signcolumn = "yes:2"
+opt.isfname:append("@-@")
+opt.shada = { "'10", "<0", "s10", "h" }
 
 opt.guicursor =
 	"n:blinkwait3000-blinkoff50-blinkon400-Cursor/lCursor,i:ver40-blinkwait3000-blinkoff300-blinkon150-Cursor/lCursor,c:ver40-blinkwait3000-blinkoff300-blinkon150-Cursor/lCursor"
 
-opt.nu = true
---o.relativenumber = true
+opt.history = 500
 
 opt.backup = false
 opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
---Ensure dir is created
-if not vim.fn.isdirectory(vim.fn.expand(vim.o.undodir)) then
-	vim.fn.mkdir(vim.fn.expand(opt.undodir), "p", "0770")
+
+local undoDir = vim.fn.expand(vim.o.undodir)
+if not vim.fn.isdirectory(undoDir) then
+	utils.create_dir(undoDir)
 end
 
-opt.termguicolors = true
-opt.cursorline = true
-opt.culopt = "number"
+opt.tabstop = 2
+opt.softtabstop = 2
+opt.shiftwidth = 2
+opt.expandtab = true
 
-opt.smartcase = true
-opt.hlsearch = false
 opt.ignorecase = true
+opt.smartcase = true
 
-opt.splitbelow = true
-opt.splitright = true
+opt.fileencoding = "utf-8"
+opt.fileencodings = { "ucs-bom", "utf-8", "cp936", "gb18030", "big5", "euc-jp", "euc-kr", "latin1" }
+
+opt.scrolloff = 3
+
+opt.mouse = "n"
+opt.mousemodel = "popup"
+opt.mousescroll = { "ver:1", "hor:0" }
+
 opt.showmode = false
-opt.winminwidth = 5
 
-opt.signcolumn = "yes"
-opt.isfname:append("@-@")
-opt.shada = { "'10", "<0", "s10", "h" }
+opt.fileformats = { "unix", "dos" }
+opt.confirm = true
 
-opt.swapfile = false
+opt.autowrite = false
+opt.autoread = true
 
-opt.wrap = true
-opt.linebreak = true
-
-opt.joinspaces = false
-
-opt.tabstop = 4
-opt.shiftwidth = 4
-
-opt.more = false
-
-opt.title = true
-opt.titlestring = '%t%( %M%)%( (%{expand("%:~:h")})%)%a (nvim)'
-
-opt.undofile = true
-
--- Make :wa not ask for confirmation (skip unwritable buffers silently)
-vim.api.nvim_create_user_command("Wa", "silent! wa", {})
-vim.cmd.cnoreabbrev("wa", "Wa")
+opt.showcmdloc = "statusline"
