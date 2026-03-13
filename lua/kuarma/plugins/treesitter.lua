@@ -27,6 +27,7 @@ return {
 				"elixir",
 				"git_config",
 				"gitcommit",
+				"latex",
 				"gitignore",
 				"groovy",
 				"go",
