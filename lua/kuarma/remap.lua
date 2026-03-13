@@ -12,6 +12,9 @@ set("n", "<C-c>", '"+Y', { desc = "Yank line to clipboard" })
 set("v", "<C-x>", '"+ygv"_d', { desc = "Cut to clipboard" })
 set("n", "<leader>p", '"+p', { desc = "paste from system clipboard" })
 
+set("n", "q", "q", { noremap = true, silent = false })
+
+
 -- LSP
 --stylua: ignore start
 set("n", "<leader>gD", vim.lsp.buf.declaration, { desc = "Declaration" })

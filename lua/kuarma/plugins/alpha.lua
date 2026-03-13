@@ -53,7 +53,6 @@ return {
 			dashboard.button("r", "  Recent", "<Cmd>:Telescope oldfiles<CR>"),
 			dashboard.button("s", "  Settings", "<Cmd>:e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
 			dashboard.button("p", "󰂖  Plugins", "<Cmd>Lazy<CR>"),
-			dashboard.button("l", "  Open session", "<Cmd>AutoSession search<CR>"),
 			dashboard.button("u", "  Update plugins", "<Cmd>Lazy sync<CR>"),
 			dashboard.button("q", "󰅚  Quit NVIM", ":qa<CR>"),
 		}
