@@ -18,6 +18,7 @@ return {
 			"mason-org/mason.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			"saghen/blink.cmp",
+			"lewis6991/gitsigns.nvim",
 			"folke/trouble.nvim",
 		},
 		config = function()
