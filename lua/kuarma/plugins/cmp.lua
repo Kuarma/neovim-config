@@ -14,7 +14,6 @@ return {
 		version = "1.*",
 		config = function()
 			require("blink.cmp").setup({
-
 				keymap = {
 					preset = "default",
 					["<S-tab>"] = { "select_prev", "fallback" },

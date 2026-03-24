@@ -63,14 +63,23 @@ return {
 
 				severity_sort = true,
 				update_in_insert = true,
+
+				signs = {
+					text = {
+						[vim.diagnostic.severity.ERROR] = "",
+						[vim.diagnostic.severity.WARN] = "",
+						[vim.diagnostic.severity.INFO] = "",
+						[vim.diagnostic.severity.HINT] = "",
+					},
+				},
 			})
 
-			vim.keymap.set("n", "<leader>Dt", function()
+			vim.keymap.set("n", "<leader>t", function()
 				local state = not vim.diagnostic.config().virtual_text
 				vim.diagnostic.config({ virtual_text = state })
 			end, { desc = "Toggle virtual text" })
 
-			vim.keymap.set("n", "<leader>Dl", function()
+			vim.keymap.set("n", "<leader>l", function()
 				local state = not vim.diagnostic.config().virtual_lines
 				vim.diagnostic.config({ virtual_lines = state })
 			end, { desc = "Toggle virtual lines" })

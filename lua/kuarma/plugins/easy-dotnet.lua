@@ -10,53 +10,38 @@ return {
 
 		dotnet.setup({
 			lsp = {
-				enabled = true,
-				preload_roslyn = true,
-				roslynator_enabled = true,
-				easy_dotnet_analyzer_enabled = true,
+				enabled = true, -- Enable builtin roslyn lsp
+				preload_roslyn = true, -- Start loading roslyn before any buffer is opened
+				roslynator_enabled = true, -- Automatically enable roslynator analyzer
+				easy_dotnet_analyzer_enabled = true, -- Enable roslyn analyzer from easy-dotnet-server
 				auto_refresh_codelens = true,
-				analyzer_assemblies = {},
+				analyzer_assemblies = {}, -- Any additional roslyn analyzers you might use like SonarAnalyzer.CSharp
 				config = {},
 			},
 			debugger = {
-				bin_path = nil,
-				console = "integratedTerminal",
+				bin_path = nil, -- easy-dotnet-server falls back to its own netcoredbg binary if bin_path is nil
+				console = "integratedTerminal", -- Controls where the target app runs: "integratedTerminal" (Neovim buffer) or "externalTerminal" (OS window)
 				apply_value_converters = true,
 				auto_register_dap = true,
 				mappings = {
 					open_variable_viewer = { lhs = "T", desc = "open variable viewer" },
 				},
 			},
-			mappings = {
-				get_build_errors = { lhs = "<leader>e", desc = "get build errors" },
-				peek_stack_trace_from_buffer = { lhs = "<leader>P", desc = "peek stack trace from buffer" },
-				go_to_file = { lhs = "g", desc = "go to file" },
-				peek_stacktrace = { lhs = "<leader>p", desc = "peek stacktrace of failed test" },
-				expand = { lhs = "o", desc = "expand" },
-				expand_node = { lhs = "E", desc = "expand node" },
-				collapse_all = { lhs = "W", desc = "collapse all" },
-				cancel = { lhs = "<C-c>", desc = "cancel in-flight operation" },
-			},
 			new = {
 				project = {
-					prefix = "sln",
-				},
-			},
-			csproj_mappings = true,
-			fsproj_mappings = true,
-			auto_bootstrap_namespace = {
-				type = "file_scoped",
-				enabled = true,
-				use_clipboard_json = {
-					behavior = "auto",
-					register = "+",
+					prefix = "sln", -- "sln" | "none"
 				},
 			},
 			picker = "telescope",
-			background_scanning = true,
-			diagnostics = {
-				default_severity = "error",
-				setqflist = false,
+			csproj_mappings = true,
+			fsproj_mappings = true,
+			auto_bootstrap_namespace = {
+				type = "block_scoped", --block_scoped, file_scoped
+				enabled = true,
+				use_clipboard_json = {
+					behavior = "prompt", --'auto' | 'prompt' | 'never',
+					register = "+", -- which register to check
+				},
 			},
 		})
 		vim.api.nvim_create_user_command("Secrets", function()
