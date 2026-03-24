@@ -23,9 +23,15 @@ return {
 		},
 		config = function()
 			-- Lsp / Mason setup
-			require("mason").setup()
+			require("mason").setup({
+				registries = {
+					"github:mason-org/mason-registry",
+					"github:Crashdummyy/mason-registry",
+				},
+			})
 			require("mason-lspconfig").setup({
 				automatic_enable = true,
+				automatic_installation = true,
 			})
 			require("mason-tool-installer").setup({
 				ensure_installed = {

@@ -8,95 +8,59 @@ return {
 	config = function()
 		local dotnet = require("easy-dotnet")
 
-		-- Options are not required
 		dotnet.setup({
 			lsp = {
 				enabled = true,
-				roslynator_enabled = true,
 				preload_roslyn = true,
+				roslynator_enabled = true,
+				easy_dotnet_analyzer_enabled = true,
+				auto_refresh_codelens = true,
 				analyzer_assemblies = {},
 				config = {},
 			},
 			debugger = {
 				bin_path = nil,
+				console = "integratedTerminal",
+				apply_value_converters = true,
 				auto_register_dap = true,
 				mappings = {
 					open_variable_viewer = { lhs = "T", desc = "open variable viewer" },
 				},
 			},
-			projx_lsp = {
-				enabled = true,
+			mappings = {
+				get_build_errors = { lhs = "<leader>e", desc = "get build errors" },
+				peek_stack_trace_from_buffer = { lhs = "<leader>P", desc = "peek stack trace from buffer" },
+				go_to_file = { lhs = "g", desc = "go to file" },
+				peek_stacktrace = { lhs = "<leader>p", desc = "peek stacktrace of failed test" },
+				expand = { lhs = "o", desc = "expand" },
+				expand_node = { lhs = "E", desc = "expand node" },
+				collapse_all = { lhs = "W", desc = "collapse all" },
+				cancel = { lhs = "<C-c>", desc = "cancel in-flight operation" },
 			},
 			new = {
 				project = {
 					prefix = "sln",
 				},
 			},
-			---@param action "test" | "restore" | "build" | "run"
-			terminal = function(path, action, args)
-				args = args or ""
-				local commands = {
-					run = function()
-						return string.format("dotnet run --project %s %s", path, args)
-					end,
-					test = function()
-						return string.format("dotnet test %s %s", path, args)
-					end,
-					restore = function()
-						return string.format("dotnet restore %s %s", path, args)
-					end,
-					build = function()
-						return string.format("dotnet build %s %s", path, args)
-					end,
-					watch = function()
-						return string.format("dotnet watch --project %s %s", path, args)
-					end,
-				}
-				local command = commands[action]()
-				if require("easy-dotnet.extensions").isWindows() == true then
-					command = command .. "\r"
-				end
-				vim.cmd("vsplit")
-				vim.cmd("term " .. command)
-			end,
 			csproj_mappings = true,
 			fsproj_mappings = true,
 			auto_bootstrap_namespace = {
-				type = "block_scoped",
+				type = "file_scoped",
 				enabled = true,
 				use_clipboard_json = {
-					behavior = "prompt",
+					behavior = "auto",
 					register = "+",
 				},
 			},
-			server = {
-				---@type nil | "Off" | "Critical" | "Error" | "Warning" | "Information" | "Verbose" | "All"
-				log_level = "All",
-			},
 			picker = "telescope",
 			background_scanning = true,
-			notifications = {
-				--Set this to false if you have configured lualine to avoid double logging
-				handler = function(start_event)
-					local spinner = require("easy-dotnet.ui-modules.spinner").new()
-					spinner:start_spinner(start_event.job.name)
-					return function(finished_event)
-						spinner:stop_spinner(finished_event.result.msg, finished_event.result.level)
-					end
-				end,
-			},
 			diagnostics = {
 				default_severity = "error",
 				setqflist = false,
 			},
 		})
-
 		vim.api.nvim_create_user_command("Secrets", function()
 			dotnet.secrets()
 		end, {})
-
-		vim.keymap.set("n", "<leader>Cv", function()
-			dotnet.project_view()
-		end, { desc = "Dotnet project view" })
 	end,
 }

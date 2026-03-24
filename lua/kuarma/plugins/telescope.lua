@@ -82,8 +82,8 @@ return {
 		vim.keymap.set("n", "<space>sg", function()	builtin.git_files(gs) end, { desc = "Git files" })
 		vim.keymap.set("n", "<space>sb", function() builtin.buffers(gs)	end, { desc = "Find buffers" })
 		vim.keymap.set("n", "<space>sH", function()	builtin.help_tags(gs) end, { desc = "Neovim documentation" })
-        vim.keymap.set("n", "<space>si", "<cmd>Telescope media_files<cr>", { desc = "Media files" })
-        vim.keymap.set("n", "<C-f>", builtin.current_buffer_fuzzy_find, { desc = "Effectively Ctrl+f" })
+    vim.keymap.set("n", "<space>si", "<cmd>Telescope media_files<cr>", { desc = "Media files" })
+    vim.keymap.set("n", "<C-f>", builtin.current_buffer_fuzzy_find, { desc = "Effectively Ctrl+f" })
 		--stylua: ignore end,
 	end,
 }
