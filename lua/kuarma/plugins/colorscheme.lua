@@ -1,8 +1,6 @@
 return {
-	"ankushbhagats/pastel.nvim",
+	"folke/tokyonight.nvim",
 	lazy = false,
-	priority = 1000, -- load earlier
-	config = function()
-		require("pastel").setup()
-	end,
+	priority = 1000,
+	opts = {},
 }

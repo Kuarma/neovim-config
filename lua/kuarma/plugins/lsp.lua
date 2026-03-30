@@ -35,7 +35,7 @@ return {
 			})
 			require("mason-tool-installer").setup({
 				ensure_installed = {
-					{ "lua-language-server", version = "3.16.4" }, -- https://github.com/folke/lazydev.nvim/issues/136
+					{ "lua-language-server", auto_update = true }, -- https://github.com/folke/lazydev.nvim/issues/136
 					{ "bash-language-server", auto_update = true },
 					{ "stylua", auto_update = true },
 				},
