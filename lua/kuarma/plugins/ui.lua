@@ -63,15 +63,6 @@ return {
 		end,
 	},
 	{
-		"nvim-mini/mini.icons",
-		version = false,
-		lazy = false,
-		config = function()
-			require("mini.icons").mock_nvim_web_devicons()
-			require("mini.icons").tweak_lsp_kind()
-		end,
-	},
-	{
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,

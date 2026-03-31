@@ -10,6 +10,8 @@ return {
 		dependencies = {
 			"rafamadriz/friendly-snippets",
 			"xzbdmw/colorful-menu.nvim",
+			"nvim-tree/nvim-web-devicons",
+			"onsails/lspkind.nvim",
 		},
 		version = "1.*",
 		config = function()
@@ -31,10 +33,13 @@ return {
 					},
 				},
 				signature = { enabled = true },
-
 				sources = {
-					default = { "lsp", "easy-dotnet", "snippets", "path" },
-
+					default = {
+						"easy-dotnet",
+						"lsp",
+						"snippets",
+						"path",
+					},
 					providers = {
 						["easy-dotnet"] = {
 							name = "easy-dotnet",
@@ -45,56 +50,65 @@ return {
 						},
 					},
 				},
-
 				completion = {
 					documentation = { auto_show = true },
 					ghost_text = { enabled = true },
-
 					list = {
 						selection = {
 							preselect = true,
 							auto_insert = true,
 						},
 					},
-
 					accept = {
 						auto_brackets = { enabled = true },
 					},
-
 					menu = {
 						enabled = true,
 						auto_show = true,
-						direction_priority = { "s", "n" },
-
+						direction_priority = {
+							"s",
+							"n",
+						},
 						min_width = 45,
 						max_height = 30,
 						border = "none",
-						winblend = 10,
+						winblend = 0,
 						scrollbar = false,
 						draw = {
-							columns = { { "kind_icon" }, { "label", gap = 1 } },
-
-							-- Definition for columns
 							components = {
-								label = {
+								kind_icon = {
 									text = function(ctx)
-										return require("colorful-menu").blink_components_text(ctx)
+										local icon = ctx.kind_icon
+										if vim.tbl_contains({ "Path" }, ctx.source_name) then
+											local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
+											if dev_icon then
+												icon = dev_icon
+											end
+										else
+											icon = require("lspkind").symbol_map[ctx.kind] or ""
+										end
+
+										return icon .. ctx.icon_gap
 									end,
+
 									highlight = function(ctx)
-										return require("colorful-menu").blink_components_highlight(ctx)
+										local hl = ctx.kind_hl
+										if vim.tbl_contains({ "Path" }, ctx.source_name) then
+											local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
+											if dev_icon then
+												hl = dev_hl
+											end
+										end
+										return hl
 									end,
 								},
 							},
-
-							treesitter = { "lsp" },
 						},
 					},
 				},
-
 				opts_extend = {
 					"sources.default",
 				},
-
 				appearance = {
 					nerd_font_variant = "mono",
 					kind_icons = {
