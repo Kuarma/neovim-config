@@ -18,8 +18,8 @@ return {
 			require("blink.cmp").setup({
 				keymap = {
 					preset = "default",
-					["<S-tab>"] = { "select_prev", "fallback" },
 					["<Tab>"] = { "select_next", "fallback" },
+					["<S-tab>"] = { "select_prev", "fallback" },
 					["<C-s>"] = { "show", "show_documentation", "hide_documentation" },
 					["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
 					["<A-space>"] = {
@@ -32,13 +32,28 @@ return {
 						end,
 					},
 				},
-				signature = { enabled = true },
+				signature = {
+					enabled = true,
+					trigger = {
+						enabled = true,
+						show_on_keyword = true,
+						show_on_insert = true,
+					},
+					window = {
+						min_width = 5,
+						border = "rounded",
+						direction_priority = { "s" },
+						show_documentation = true,
+						treesitter_highlighting = true,
+					},
+				},
 				sources = {
 					default = {
 						"easy-dotnet",
 						"lsp",
 						"snippets",
 						"path",
+						"omni",
 					},
 					providers = {
 						["easy-dotnet"] = {
@@ -48,10 +63,44 @@ return {
 							score_offset = 10000,
 							async = true,
 						},
+						["omni"] = {
+							module = "blink.cmp.sources.complete_func",
+							enabled = function()
+								return vim.bo.omnifunc ~= "v:lua.vim.lsp.omnifunc"
+							end,
+							---@type blink.cmp.CompleteFuncOpts
+							opts = {
+								complete_func = function()
+									return vim.bo.omnifunc
+								end,
+							},
+						},
+						["snippets"] = {
+							module = "blink.cmp.sources.snippets",
+							score_offset = -1,
+							opts = {
+								friendly_snippets = true,
+								search_paths = { vim.fn.stdpath("config") .. "/snippets" },
+								global_snippets = { "all" },
+								extended_filetypes = {},
+								clipboard_register = "+",
+								use_label_description = true,
+							},
+						},
 					},
 				},
 				completion = {
-					documentation = { auto_show = true },
+					documentation = {
+						auto_show = true,
+						treesitter_highlighting = true,
+						window = {
+							border = "rounded",
+							min_width = 10,
+							scrollbar = true,
+							winblend = 0,
+							winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,EndOfBuffer:BlinkCmpDoc",
+						},
+					},
 					ghost_text = { enabled = true },
 					list = {
 						selection = {
@@ -65,16 +114,21 @@ return {
 					menu = {
 						enabled = true,
 						auto_show = true,
+						align_to = "label",
 						direction_priority = {
 							"s",
 							"n",
 						},
 						min_width = 45,
 						max_height = 30,
-						border = "none",
+						border = "rounded",
 						winblend = 0,
 						scrollbar = false,
 						draw = {
+							padding = 1,
+							gap = 1,
+							snippet_indicator = "~",
+							treesitter = { "lsp" },
 							components = {
 								kind_icon = {
 									text = function(ctx)
@@ -90,7 +144,6 @@ return {
 
 										return icon .. ctx.icon_gap
 									end,
-
 									highlight = function(ctx)
 										local hl = ctx.kind_hl
 										if vim.tbl_contains({ "Path" }, ctx.source_name) then
@@ -106,54 +159,38 @@ return {
 						},
 					},
 				},
-				opts_extend = {
-					"sources.default",
-				},
 				appearance = {
 					nerd_font_variant = "mono",
-					kind_icons = {
-						Text = "󰉿",
-						Method = "󰊕",
-						Function = "󰊕",
-						Constructor = "󰒓",
-						Field = "󰜢",
-						Variable = "󰆦",
-						Class = "󱡠",
-						Interface = "󱡠",
-						Module = "󰅩",
-						Property = "󰖷",
-						Unit = "󰪚",
-						Value = "󰦨",
-						Enum = "󰦨",
-						Keyword = "󰻾",
-						Snippet = "✂",
-						Color = "󰏘",
-						File = "󰈔",
-						Reference = "󰬲",
-						Folder = "󰉋",
-						EnumMember = "󰦨",
-						Constant = "󰏿",
-						Struct = "󱡠",
-						Event = "󱐋",
-						Operator = "󰪚",
-						TypeParameter = "󰬛",
-					},
 				},
-
 				cmdline = {
 					enabled = true,
-
 					completion = {
 						menu = { auto_show = true },
 						ghost_text = { enabled = true },
 					},
-
 					keymap = { preset = "inherit" },
-					sources = { "buffer", "cmdline" },
+					sources = {
+						"buffer",
+						"cmdline",
+					},
 				},
-
 				fuzzy = {
 					implementation = "prefer_rust_with_warning",
+					max_typos = function(keyword)
+						return math.floor(#keyword / 4)
+					end,
+					frecency = {
+						enabled = true,
+						path = vim.fn.stdpath("state") .. "/blink/cmp/frecency.dat",
+					},
+					use_proximity = true,
+					sorts = {
+						"score",
+						"sort_text",
+					},
+					prebuilt_binaries = {
+						download = true,
+					},
 				},
 			})
 		end,
