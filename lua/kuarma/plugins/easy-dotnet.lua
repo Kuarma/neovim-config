@@ -19,8 +19,8 @@ return {
 				config = {},
 			},
 			debugger = {
-				bin_path = nil, -- easy-dotnet-server falls back to its own netcoredbg binary if bin_path is nil
-				console = "integratedTerminal", -- Controls where the target app runs: "integratedTerminal" (Neovim buffer) or "externalTerminal" (OS window)
+				bin_path = nil,
+				console = "externalTerminal", -- Controls where the target app runs: "integratedTerminal" (Neovim buffer) or "externalTerminal" (OS window)
 				apply_value_converters = true,
 				auto_register_dap = true,
 				mappings = {
@@ -29,7 +29,7 @@ return {
 			},
 			new = {
 				project = {
-					prefix = "sln", -- "sln" | "none"
+					prefix = "sln",
 				},
 			},
 			picker = "telescope",
@@ -39,13 +39,10 @@ return {
 				type = "block_scoped", --block_scoped, file_scoped
 				enabled = true,
 				use_clipboard_json = {
-					behavior = "prompt", --'auto' | 'prompt' | 'never',
+					behavior = "auto", --'auto' | 'prompt' | 'never',
 					register = "+", -- which register to check
 				},
 			},
 		})
-		vim.api.nvim_create_user_command("Secrets", function()
-			dotnet.secrets()
-		end, {})
 	end,
 }
