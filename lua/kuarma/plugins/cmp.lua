@@ -24,14 +24,11 @@ return {
 					["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
 					["<A-space>"] = {
 						function(cmp)
-							cmp.show({
-								providers = {
-									"snippets",
-								},
-							})
+							cmp.show({})
 						end,
 					},
 				},
+
 				signature = {
 					enabled = true,
 					trigger = {
@@ -47,6 +44,7 @@ return {
 						treesitter_highlighting = true,
 					},
 				},
+
 				sources = {
 					default = {
 						"easy-dotnet",
@@ -89,6 +87,7 @@ return {
 						},
 					},
 				},
+
 				completion = {
 					documentation = {
 						auto_show = true,
@@ -159,9 +158,11 @@ return {
 						},
 					},
 				},
+
 				appearance = {
 					nerd_font_variant = "mono",
 				},
+
 				cmdline = {
 					enabled = true,
 					completion = {
@@ -174,6 +175,7 @@ return {
 						"cmdline",
 					},
 				},
+
 				fuzzy = {
 					implementation = "prefer_rust_with_warning",
 					max_typos = function(keyword)

@@ -7,9 +7,10 @@ return {
 				ft = "lua",
 				opts = {
 					library = {
-						-- See the configuration section for more details
-						-- Load luvit types when the `vim.uv` word is found
-						{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+						{
+							path = "${3rd}/luv/library",
+							words = { "vim%.uv" },
+						},
 					},
 				},
 			},
@@ -29,15 +30,30 @@ return {
 					"github:Crashdummyy/mason-registry",
 				},
 			})
+
 			require("mason-lspconfig").setup({
 				automatic_enable = true,
 				automatic_installation = true,
 			})
+
 			require("mason-tool-installer").setup({
 				ensure_installed = {
-					{ "lua-language-server", auto_update = true }, -- https://github.com/folke/lazydev.nvim/issues/136
-					{ "bash-language-server", auto_update = true },
-					{ "stylua", auto_update = true },
+					{
+						"lua-language-server",
+						auto_update = true,
+					},
+					{
+						"bash-language-server",
+						auto_update = true,
+					},
+					{
+						"stylua",
+						auto_update = true,
+					},
+					{
+						"codespell",
+						auto_update = true,
+					},
 				},
 			})
 
@@ -86,14 +102,24 @@ return {
 
 			-- Conform setup
 			-- Docs: https://github.com/stevearc/conform.nvim/tree/master
-			require("conform").setup({
+			local conform = require("conform")
+
+			conform.setup({
+				async = true,
 				formatters_by_ft = {
 					lua = { "stylua" },
-					cs = { "csharpier" },
+					cs = { lsp_format = "fallback", "csharpier" },
+					csproj = { lsp_format = "fallback", "csharpier" },
+					["*"] = { "codespell" },
+					["_"] = { "trim_whitespace" },
 				},
+
 				format_on_save = {
-					-- These options will be passed to conform.format()
 					timeout_ms = 500,
+					lsp_format = "fallback",
+				},
+
+				format_after_save = {
 					lsp_format = "fallback",
 				},
 			})
