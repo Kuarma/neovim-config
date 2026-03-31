@@ -155,49 +155,13 @@ return {
 	{
 		"chrisgrieser/nvim-recorder",
 		dependencies = "rcarriga/nvim-notify",
-		config = function()
-			require("recorder").setup({
-				slots = {
-					"a",
-					"b",
-					"c",
-				},
-				dynamicSlots = "static",
-				mapping = {
-					startStopRecording = "q",
-					playMacro = "Q",
-					switchSlot = "<A-q>",
-					editMacro = "cq",
-					deleteAllMacros = "dq",
-					yankMacro = "yq",
-					addBreakPoint = "##",
-				},
-				clear = true,
-				logLevel = vim.log.levels.INFO,
-				lessNotifications = false,
-				useNerdfontIcons = true,
-				performanceOpts = {
-					countThreshold = 100,
-					lazyredraw = true, -- enable lazyredraw (see `:h lazyredraw`)
-					noSystemClipboard = true, -- remove `+`/`*` from clipboard option
-					autocmdEventsIgnore = { -- temporarily ignore these autocmd events
-						"TextChangedI",
-						"TextChanged",
-						"InsertLeave",
-						"InsertEnter",
-						"InsertCharPre",
-					},
-				},
-				dapSharedKeymaps = false,
-			})
-		end,
+		opts = {},
 	},
 	{
 		"nvim-lualine/lualine.nvim",
 		event = "VeryLazy",
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
-			"chrisgrieser/nvim-recorder",
 		},
 		config = function()
 			local lualine = require("lualine")
@@ -207,12 +171,6 @@ return {
 					globalstatus = true,
 				},
 				sections = {
-					lualine_a = {
-						require("recorder").recordingStatus,
-					},
-					lualine_y = {
-						{ require("recorder").displaySlots },
-					},
 					lualine_z = {
 						"lsp_status",
 					},

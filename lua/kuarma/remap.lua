@@ -12,9 +12,6 @@ set("n", "<C-c>", '"+Y', { desc = "Yank line to clipboard" })
 set("v", "<C-x>", '"+ygv"_d', { desc = "Cut to clipboard" })
 set("n", "<leader>p", '"+p', { desc = "paste from system clipboard" })
 
-set("n", "q", "q", { noremap = true, silent = false })
-
-
 -- LSP
 --stylua: ignore start
 set("n", "<leader>gD", vim.lsp.buf.declaration, { desc = "Declaration" })
@@ -29,9 +26,6 @@ set("n", "<leader><leader>n", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Le
 set({ "n", "v" }, "<leader>r", function()	vim.lsp.buf.rename() end, { desc = "Global rename" })
 set({ "n", "v" }, ".", "<cmd>b#<cr>", { desc = "Go back to last opened buffer" })
 --stylua: ignore end
-
--- Screenkeys
-set("n", "<leader><Tab>", "<CMD>Screenkey<CR>", { desc = "Screenkey toggle" })
 
 -- Undotree
 set("n", "<leader>u", "<Cmd>:UndotreeToggle<CR>", { desc = "Toggle Undotree" })

@@ -1,2 +1,3 @@
-## Kuarma's Neovim Config
+My nvim configuration 
 
+## Prerequisites
