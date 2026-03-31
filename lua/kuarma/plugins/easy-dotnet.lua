@@ -21,12 +21,16 @@ return {
 
 			debugger = {
 				bin_path = nil,
-				console = "integratedTerminal", -- Controls where the target app runs: "integratedTerminal" (Neovim buffer) or "externalTerminal" (OS window)
+				console = "externalTerminal", -- Controls where the target app runs: "integratedTerminal" (Neovim buffer) or "externalTerminal" (OS window)
 				apply_value_converters = true,
 				auto_register_dap = true,
 				mappings = {
 					open_variable_viewer = { lhs = "T", desc = "open variable viewer" },
 				},
+			},
+
+			projx_lsp = {
+				enabled = true,
 			},
 
 			new = {
@@ -41,12 +45,8 @@ return {
 			background_scanning = true,
 
 			auto_bootstrap_namespace = {
-				type = "block_scoped", --block_scoped, file_scoped
+				type = "file_scoped", --block_scoped, file_scoped
 				enabled = true,
-				use_clipboard_json = {
-					behavior = "auto", --'auto' | 'prompt' | 'never',
-					register = "+", -- which register to check
-				},
 			},
 		})
 	end,
