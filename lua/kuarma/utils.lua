@@ -15,7 +15,14 @@ function M.create_dir(dir)
 end
 
 function M.inside_git_repo()
-	local result = vim.system({ "git", "rev-parse", "--is-inside-work-tree" }, { text = true }):wait()
+	local result = vim.system({
+		"git",
+		"rev-parse",
+		"--is-inside-work-tree",
+	}, {
+		text = true,
+	}):wait()
+
 	if result.code ~= 0 then
 		return false
 	end
