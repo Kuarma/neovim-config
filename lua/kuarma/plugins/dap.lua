@@ -20,7 +20,12 @@ return {
 			"igorlfs/nvim-dap-view",
 		},
 		config = function()
-			local dap, dapui = require("dap"), require("dapui")
+			local dap, dapui, daptext = require("dap"), require("dapui"), require("nvim-dap-virtual-text")
+
+			daptext.setup({
+				all_references = true,
+				virt_text_pos = "eol",
+			})
 
 			dapui.setup({
 				expand_lines = true,
@@ -151,7 +156,7 @@ return {
 			vim.keymap.set("n", "<F5>", dap.continue, { desc = "Start/continue debugging" })
 			vim.keymap.set("n", "<F2>", dap.step_over, { desc = "Step over" })
 			vim.keymap.set("n", "<F10>", dap.terminate, { desc = "Terminate session" })
-			vim.keymap.set("n", "<C-t>", dapui.eval, { desc = "Evaluate expression" })
+			vim.keymap.set("n", "<C-t>", dapui.eval, { desc = "Evaluate expression under cursor" })
 			vim.keymap.set("n", "<leader>df", dapui.float_element, { desc = "Create floating element" })
 			vim.keymap.set("n", "<leader>di", dap.step_into, { desc = "Step into" })
 			vim.keymap.set("n", "<leader>do", dap.step_out, { desc = "Step out" })
