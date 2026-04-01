@@ -1,19 +1,20 @@
 return {
 	{
-		"neovim/nvim-lspconfig",
-		dependencies = {
-			{
-				"folke/lazydev.nvim",
-				ft = "lua",
-				opts = {
-					library = {
-						{
-							path = "${3rd}/luv/library",
-							words = { "vim%.uv" },
-						},
-					},
+		"folke/lazydev.nvim",
+		ft = "lua",
+		opts = {
+			library = {
+				"nvim-dap-ui",
+				{
+					path = "${3rd}/luv/library",
+					words = { "vim%.uv" },
 				},
 			},
+		},
+	},
+	{
+		"neovim/nvim-lspconfig",
+		dependencies = {
 			{
 				"folke/trouble.nvim",
 				opts = {},
@@ -26,6 +27,7 @@ return {
 					},
 				},
 			},
+			"folke/lazydev.nvim",
 			"stevearc/conform.nvim",
 			"mason-org/mason-lspconfig.nvim",
 			"mason-org/mason.nvim",
