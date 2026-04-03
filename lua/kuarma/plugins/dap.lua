@@ -89,12 +89,16 @@ return {
 					{
 						elements = {
 							{
-								id = "easy-dotnet_cpu",
+								id = "console",
 								size = 0.5,
 							},
 							{
+								id = "easy-dotnet_cpu",
+								size = 0.25,
+							},
+							{
 								id = "easy-dotnet_mem",
-								size = 0.5,
+								size = 0.25,
 							},
 						},
 						size = 60,

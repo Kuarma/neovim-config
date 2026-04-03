@@ -21,7 +21,7 @@ return {
 
 			debugger = {
 				bin_path = nil,
-				console = "externalTerminal", -- Controls where the target app runs: "integratedTerminal" (Neovim buffer) or "externalTerminal" (OS window)
+				console = "integratedTerminal", -- Controls where the target app runs: "integratedTerminal" (Neovim buffer) or "externalTerminal" (OS window)
 				apply_value_converters = true,
 				auto_register_dap = true,
 				mappings = {
