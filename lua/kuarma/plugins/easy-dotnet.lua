@@ -49,5 +49,16 @@ return {
 				enabled = true,
 			},
 		})
+
+		vim.keymap.set("n", "<leader>Dv", dotnet.project_view, { desc = "open project view" })
+		vim.keymap.set("n", "<leader>Dr", dotnet.restore, { desc = "dotnet restore" })
+		vim.keymap.set("n", "<leader>Dc", dotnet.clean, { desc = "dotnet clean" })
+		vim.keymap.set("n", "<leader>Dq", dotnet.build_quickfix, { desc = "open errors in a quickfix list" })
+		vim.keymap.set("n", "<leader>Db", dotnet.build, { desc = "dotnet build" })
+		vim.keymap.set("n", "<leader>Do", dotnet.outdated, { desc = "dotnet outdated" })
+		vim.keymap.set("n", "<leader>Da", dotnet.add_package, { desc = "dotnet add package" })
+		vim.keymap.set("n", "<leader>Dw", dotnet.watch, { desc = "dotnet watch" })
+		vim.keymap.set("n", "<leader>DN", dotnet.new, { desc = "dotnet new template" })
+		vim.keymap.set("n", "<leader>Ds", dotnet.secrets, { desc = "dotnet secrets" })
 	end,
 }

@@ -17,7 +17,6 @@ return {
 					["<C-l>"] = false,
 					["<C-k>"] = false,
 					["<C-j>"] = false,
-					["<M-h>"] = "actions.select_split",
 				},
 				default_file_explorer = true,
 				skip_confirm_for_simple_edits = true,
@@ -33,11 +32,7 @@ return {
 					show_hidden = true,
 				},
 			})
-			-- Open parent directory in current window
 			vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-
-			-- Open parent directory in floating window
-			vim.keymap.set("n", "<space>-", require("oil").toggle_float)
 		end,
 	},
 	{
@@ -48,6 +43,5 @@ return {
 	{
 		"benomahony/oil-git.nvim",
 		dependencies = { "stevearc/oil.nvim" },
-		-- No opts or config needed! Works automatically
 	},
 }
