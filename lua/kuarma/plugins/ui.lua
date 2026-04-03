@@ -199,13 +199,16 @@ return {
 		},
 		config = function()
 			local lualine = require("lualine")
+			local job_indicator = { require("easy-dotnet.ui-modules.jobs").lualine }
+
 			lualine.setup({
 				options = {
 					theme = "auto",
 					globalstatus = true,
 				},
 				sections = {
-					lualine_a = {
+					lualine_a = { "mode", job_indicator },
+					lualine_b = {
 						require("recorder").recordingStatus,
 					},
 					lualine_y = {
