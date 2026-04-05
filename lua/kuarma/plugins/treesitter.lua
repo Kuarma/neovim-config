@@ -1,137 +1,15 @@
+local function select(textobj)
+	return function()
+		require("nvim-treesitter-textobjects.select").select_textobject(textobj, "textobjects")
+	end
+end
+
 return {
 	{
-		"nvim-treesitter/nvim-treesitter",
-		dependencies = {
-			{
-				"nvim-treesitter/nvim-treesitter-textobjects",
-				opts = {
-					select = {
-						lookahead = true,
-						include_surrounding_whitespace = false,
-					},
-				},
-			},
-		},
-		lazy = false,
-		build = ":TSUpdate",
-		config = function()
-			require("nvim-treesitter").setup({
-				auto_install = true,
-				highlight = {
-					enable = true,
-				},
-			})
-
-			local ensure_installed = {
-				"bash",
-				"comment",
-				"css",
-				"diff",
-				"dockerfile",
-				"elixir",
-				"git_config",
-				"gitcommit",
-				"latex",
-				"gitignore",
-				"groovy",
-				"go",
-				"heex",
-				"hcl",
-				"html",
-				"http",
-				"java",
-				"javascript",
-				"jsdoc",
-				"json",
-				"rust",
-				"json5",
-				"lua",
-				"c_sharp",
-				"make",
-				"markdown",
-				"markdown_inline",
-				"python",
-				"regex",
-				"rst",
-				"rust",
-				"scss",
-				"ssh_config",
-				"sql",
-				"terraform",
-				"typst",
-				"toml",
-				"tsx",
-				"typescript",
-				"vim",
-				"vimdoc",
-				"yaml",
-			}
-
-			require("nvim-treesitter").install(ensure_installed)
-
-			vim.api.nvim_create_autocmd("FileType", {
-				pattern = "*",
-				callback = function()
-					local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
-					if lang then
-						pcall(vim.treesitter.start)
-					else
-						vim.notify("Parser not found")
-					end
-
-					vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-					vim.opt.foldmethod = "expr"
-					vim.opt.foldlevel = 10
-				end,
-			})
-			vim.keymap.set({ "n", "x", "o" }, "]m", function()
-				require("nvim-treesitter-textobjects.move").goto_next_start("@function.outer", "textobjects")
-			end)
-			vim.keymap.set({ "n", "x", "o" }, "]]", function()
-				require("nvim-treesitter-textobjects.move").goto_next_start("@class.outer", "textobjects")
-			end)
-			vim.keymap.set({ "n", "x", "o" }, "]o", function()
-				require("nvim-treesitter-textobjects.move").goto_next_start(
-					{ "@loop.inner", "@loop.outer" },
-					"textobjects"
-				)
-			end)
-			vim.keymap.set({ "n", "x", "o" }, "]s", function()
-				require("nvim-treesitter-textobjects.move").goto_next_start("@local.scope", "locals")
-			end)
-			vim.keymap.set({ "n", "x", "o" }, "]z", function()
-				require("nvim-treesitter-textobjects.move").goto_next_start("@fold", "folds")
-			end)
-
-			vim.keymap.set({ "n", "x", "o" }, "]M", function()
-				require("nvim-treesitter-textobjects.move").goto_next_end("@function.outer", "textobjects")
-			end)
-			vim.keymap.set({ "n", "x", "o" }, "][", function()
-				require("nvim-treesitter-textobjects.move").goto_next_end("@class.outer", "textobjects")
-			end)
-
-			vim.keymap.set({ "n", "x", "o" }, "[m", function()
-				require("nvim-treesitter-textobjects.move").goto_previous_start("@function.outer", "textobjects")
-			end)
-			vim.keymap.set({ "n", "x", "o" }, "[[", function()
-				require("nvim-treesitter-textobjects.move").goto_previous_start("@class.outer", "textobjects")
-			end)
-
-			vim.keymap.set({ "n", "x", "o" }, "[M", function()
-				require("nvim-treesitter-textobjects.move").goto_previous_end("@function.outer", "textobjects")
-			end)
-			vim.keymap.set({ "n", "x", "o" }, "[]", function()
-				require("nvim-treesitter-textobjects.move").goto_previous_end("@class.outer", "textobjects")
-			end)
-		end,
-	},
-	{
 		"nvim-treesitter/nvim-treesitter-context",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function()
 			require("treesitter-context").setup({
 				enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-				multiwindow = false, -- Enable multiwindow support.
 				max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
 				min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
 				line_numbers = true,
@@ -145,5 +23,67 @@ return {
 				on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
 			})
 		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter",
+		lazy = false,
+		branch = "main",
+		build = ":TSUpdate",
+		init = function()
+			local parser_installed = {
+				"lua",
+				"vim",
+				"vimdoc",
+				"query",
+				"markdown_inline",
+				"markdown",
+				"c_sharp",
+				"xml",
+				"sql",
+				"json",
+			}
+
+			vim.defer_fn(function()
+				require("nvim-treesitter").install(parser_installed)
+			end, 1000)
+			require("nvim-treesitter").update()
+
+			vim.api.nvim_create_autocmd("FileType", {
+				desc = "User: enable treesitter highlighting",
+				callback = function()
+					local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
+					if lang then
+						pcall(vim.treesitter.start)
+					else
+						vim.notify("Parser not found")
+					end
+				end,
+			})
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		dependencies = "nvim-treesitter/nvim-treesitter",
+		branch = "main",
+		opts = {
+			select = {
+				lookahead = true,
+				include_surrounding_whitespace = false,
+			},
+		},
+		keys = {
+			{ "a<CR>", select("@return.outer"), mode = { "x", "o" }, desc = "↩ outer return" },
+			{ "i<CR>", select("@return.inner"), mode = { "x", "o" }, desc = "↩ inner return" },
+			{ "aa", select("@parameter.outer"), mode = { "x", "o" }, desc = "󰏪 outer arg" },
+			{ "ia", select("@parameter.inner"), mode = { "x", "o" }, desc = "󰏪 inner arg" },
+			{ "iu", select("@loop.inner"), mode = { "x", "o" }, desc = "󰛤 inner loop" },
+			{ "au", select("@loop.outer"), mode = { "x", "o" }, desc = "󰛤 outer loop" },
+			{ "al", select("@call.outer"), mode = { "x", "o" }, desc = "󰡱 outer call" },
+			{ "il", select("@call.inner"), mode = { "x", "o" }, desc = "󰡱 inner call" },
+			{ "af", select("@function.outer"), mode = { "x", "o" }, desc = " outer function" },
+			{ "if", select("@function.inner"), mode = { "x", "o" }, desc = " inner function" },
+			{ "ao", select("@conditional.outer"), mode = { "x", "o" }, desc = "󱕆 outer condition" },
+			{ "io", select("@conditional.inner"), mode = { "x", "o" }, desc = "󱕆 inner condition" },
+		},
 	},
 }

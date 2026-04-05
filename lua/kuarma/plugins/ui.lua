@@ -25,6 +25,18 @@ return {
 			vim.cmd.colorscheme("tokyonight")
 		end,
 	},
+	{ "danilamihailov/beacon.nvim" },
+	{
+		"norcalli/nvim-colorizer.lua",
+		enabled = not vim.g.is_perf,
+		event = "BufRead",
+		config = function()
+			require("colorizer").setup({ "*" }, {
+				names = false,
+				mode = "background",
+			})
+		end,
+	},
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
@@ -171,6 +183,7 @@ return {
 					addBreakPoint = "##",
 				},
 				clear = true,
+				timeout = 1000,
 				logLevel = vim.log.levels.INFO,
 				lessNotifications = false,
 				useNerdfontIcons = true,

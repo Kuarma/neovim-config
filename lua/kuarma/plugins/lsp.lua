@@ -56,7 +56,11 @@ return {
 						auto_update = true,
 					},
 					{
-						"bash-language-server",
+						"roslyn",
+						auto_update = true,
+					},
+					{
+						"netcoredbg",
 						auto_update = true,
 					},
 					{
@@ -121,10 +125,8 @@ return {
 				async = true,
 				formatters_by_ft = {
 					lua = { "stylua" },
-					cs = { lsp_format = "fallback", "csharpier" },
-					csproj = { lsp_format = "fallback", "csharpier" },
-					["*"] = { "codespell" },
-					["_"] = { "trim_whitespace" },
+					cs = { lsp_format = "fallback" },
+					csproj = { lsp_format = "fallback" },
 				},
 
 				format_on_save = {

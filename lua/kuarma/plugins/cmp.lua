@@ -20,6 +20,8 @@ return {
 					preset = "default",
 					["<Tab>"] = { "select_next", "fallback" },
 					["<S-tab>"] = { "select_prev", "fallback" },
+					["<C-d>"] = { "scroll_documentation_down" },
+					["<C-u>"] = { "scroll_documentation_up" },
 					["<C-s>"] = { "show", "show_documentation", "hide_documentation" },
 					["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
 					["<A-space>"] = {
@@ -66,7 +68,6 @@ return {
 							enabled = function()
 								return vim.bo.omnifunc ~= "v:lua.vim.lsp.omnifunc"
 							end,
-							---@type blink.cmp.CompleteFuncOpts
 							opts = {
 								complete_func = function()
 									return vim.bo.omnifunc
