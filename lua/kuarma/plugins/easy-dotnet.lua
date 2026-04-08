@@ -50,8 +50,8 @@ return {
 					end,
 				},
 				debugger = {
-					bin_path = vim.fs.joinpath(vim.fn.stdpath("data"), "mason/bin/netcoredbg.cmd"),
-					console = "externalTerminal",
+					bin_path = nil,
+					console = "internalTerminal",
 					mappings = {
 						open_variable_viewer = { lhs = "T", desc = "open variable viewer" },
 					},

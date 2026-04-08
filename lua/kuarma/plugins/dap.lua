@@ -148,14 +148,6 @@ return {
 				dapui.open()
 			end
 
-			dap.listeners.before.event_terminated.dapui_config = function()
-				dapui.close()
-			end
-
-			dap.listeners.before.event_exited.dapui_config = function()
-				dapui.close()
-			end
-
 			vim.keymap.set("n", "<F1>", dapui.toggle, { desc = "Toggle Debug UI" })
 			vim.keymap.set("n", "<F5>", dap.continue, { desc = "Start/continue debugging" })
 			vim.keymap.set("n", "<F2>", dap.step_over, { desc = "Step over" })
