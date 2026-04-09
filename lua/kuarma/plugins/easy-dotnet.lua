@@ -4,6 +4,7 @@ return {
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope.nvim",
+			"mfussenegger/nvim-dap",
 		},
 		config = function()
 			local dotnet = require("easy-dotnet")
@@ -51,6 +52,7 @@ return {
 				},
 				debugger = {
 					bin_path = nil,
+					auto_register_dap = true,
 					console = "internalTerminal",
 					mappings = {
 						open_variable_viewer = { lhs = "T", desc = "open variable viewer" },

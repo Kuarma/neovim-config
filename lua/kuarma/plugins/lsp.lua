@@ -27,6 +27,10 @@ return {
 					},
 				},
 			},
+			{
+				"smjonas/inc-rename.nvim",
+				opts = {},
+			},
 			"folke/lazydev.nvim",
 			"stevearc/conform.nvim",
 			"neovim/nvim-lspconfig",
@@ -114,12 +118,12 @@ return {
 				},
 			})
 
-			vim.keymap.set("n", "<leader>t", function()
+			vim.keymap.set("n", "<leader>dt", function()
 				local state = not vim.diagnostic.config().virtual_text
 				vim.diagnostic.config({ virtual_text = state })
 			end, { desc = "Toggle virtual text" })
 
-			vim.keymap.set("n", "<leader>l", function()
+			vim.keymap.set("n", "<leader>dl", function()
 				local state = not vim.diagnostic.config().virtual_lines
 				vim.diagnostic.config({ virtual_lines = state })
 			end, { desc = "Toggle virtual lines" })

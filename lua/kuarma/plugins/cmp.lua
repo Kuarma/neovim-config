@@ -15,13 +15,14 @@ return {
 		},
 		version = "1.*",
 		config = function()
+			local colorful_menu = require("colorful-menu")
+			colorful_menu.setup({})
+
 			require("blink.cmp").setup({
 				keymap = {
 					preset = "default",
 					["<Tab>"] = { "select_next", "fallback" },
 					["<S-tab>"] = { "select_prev", "fallback" },
-					["<C-d>"] = { "scroll_documentation_down" },
-					["<C-u>"] = { "scroll_documentation_up" },
 					["<C-s>"] = { "show", "show_documentation", "hide_documentation" },
 					["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
 					["<A-space>"] = {
@@ -39,8 +40,12 @@ return {
 						show_on_insert = true,
 					},
 					window = {
-						min_width = 5,
+						min_width = 1,
+						max_width = 200,
+						max_height = 30,
+						winblend = 0,
 						border = "rounded",
+						winhighlight = "Normal:BlinkCmpSignatureHelp,FloatBorder:BlinkCmpSignatureHelpBorder",
 						direction_priority = { "s" },
 						show_documentation = true,
 						treesitter_highlighting = true,
@@ -92,10 +97,11 @@ return {
 				completion = {
 					documentation = {
 						auto_show = true,
-						treesitter_highlighting = true,
 						window = {
 							border = "rounded",
-							min_width = 10,
+							min_width = 15,
+							max_width = 200,
+							max_height = 50,
 							scrollbar = true,
 							winblend = 0,
 							winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,EndOfBuffer:BlinkCmpDoc",
@@ -104,7 +110,7 @@ return {
 					ghost_text = { enabled = true },
 					list = {
 						selection = {
-							preselect = true,
+							preselect = false,
 							auto_insert = true,
 						},
 					},
@@ -119,18 +125,25 @@ return {
 							"s",
 							"n",
 						},
-						min_width = 45,
-						max_height = 30,
+						min_width = 50,
+						max_height = 20,
 						border = "rounded",
 						winblend = 0,
 						scrollbar = false,
 						draw = {
 							padding = 1,
-							gap = 1,
 							snippet_indicator = "~",
 							treesitter = { "lsp" },
 							components = {
-								kind_icon = {
+								label = {
+									text = function(ctx)
+										return colorful_menu.blink_components_text(ctx)
+									end,
+									highlight = function(ctx)
+										return colorful_menu.blink_components_highlight(ctx)
+									end,
+								},
+								icons = {
 									text = function(ctx)
 										local icon = ctx.kind_icon
 										if vim.tbl_contains({ "Path" }, ctx.source_name) then
@@ -144,17 +157,11 @@ return {
 
 										return icon .. ctx.icon_gap
 									end,
-									highlight = function(ctx)
-										local hl = ctx.kind_hl
-										if vim.tbl_contains({ "Path" }, ctx.source_name) then
-											local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
-											if dev_icon then
-												hl = dev_hl
-											end
-										end
-										return hl
-									end,
 								},
+							},
+							columns = {
+								{ "icons", "kind", gap = 1 },
+								{ "label", "label_description", gap = 5 },
 							},
 						},
 					},

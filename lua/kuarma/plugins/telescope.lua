@@ -16,10 +16,11 @@ return {
 		"BurntSushi/ripgrep",
 	},
 	config = function()
-		local telescope = require("telescope")
-		local builtin = require("telescope.builtin")
-		local actions = require("telescope.actions")
-		local action_layout = require("telescope.actions.layout")
+		local telescope, builtin, actions, action_layout =
+			require("telescope"),
+			require("telescope.builtin"),
+			require("telescope.actions"),
+			require("telescope.actions.layout")
 
 		telescope.load_extension("media_files")
 		telescope.load_extension("fzf")
