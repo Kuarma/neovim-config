@@ -29,6 +29,7 @@ return {
 			},
 			"folke/lazydev.nvim",
 			"stevearc/conform.nvim",
+			"neovim/nvim-lspconfig",
 			"mason-org/mason-lspconfig.nvim",
 			"mason-org/mason.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -42,11 +43,6 @@ return {
 					"github:mason-org/mason-registry",
 					"github:Crashdummyy/mason-registry",
 				},
-			})
-
-			require("mason-lspconfig").setup({
-				automatic_enable = true,
-				automatic_installation = true,
 			})
 
 			require("mason-tool-installer").setup({
@@ -64,6 +60,14 @@ return {
 						auto_update = true,
 					},
 					{
+						"jsonls",
+						auto_update = true,
+					},
+					{
+						"oxfmt",
+						auto_update = true,
+					},
+					{
 						"stylua",
 						auto_update = true,
 					},
@@ -73,6 +77,8 @@ return {
 					},
 				},
 			})
+
+			require("mason-lspconfig").setup({})
 
 			local capabilities = {
 				textDocument = {
@@ -88,6 +94,7 @@ return {
 			-- Set global capabilities for all LSP servers
 			vim.lsp.config("*", {
 				capabilities = capabilities,
+				root_markers = { ".git" },
 			})
 
 			vim.diagnostic.config({
@@ -124,6 +131,8 @@ return {
 			conform.setup({
 				async = true,
 				formatters_by_ft = {
+					json = { "oxfmt" },
+					json5 = { "oxfmt" },
 					lua = { "stylua" },
 					cs = { lsp_format = "fallback" },
 					csproj = { lsp_format = "fallback" },
