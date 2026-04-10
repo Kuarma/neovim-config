@@ -120,7 +120,6 @@ return {
 					menu = {
 						enabled = true,
 						auto_show = true,
-						align_to = "label",
 						direction_priority = {
 							"s",
 							"n",

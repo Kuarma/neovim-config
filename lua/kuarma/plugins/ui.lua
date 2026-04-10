@@ -43,6 +43,10 @@ return {
 		config = function()
 			require("noice").setup({
 				lsp = {
+					override = {
+						["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+						["vim.lsp.util.stylize_markdown"] = true,
+					},
 					signature = {
 						enabled = false,
 						auto_open = {
@@ -67,7 +71,11 @@ return {
 	},
 	{
 		"folke/which-key.nvim",
-		lazy = false,
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+			"nvim-mini/mini.icons",
+		},
+		event = "VeryLazy",
 	},
 	{
 		"nvim-tree/nvim-web-devicons",
