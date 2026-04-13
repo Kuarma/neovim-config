@@ -7,17 +7,6 @@ opt.relativenumber = false
 
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
-opt.fillchars = {
-	fold = " ",
-	foldsep = " ",
-	foldopen = "",
-	foldclose = "",
-	vert = "│",
-	eob = " ",
-	msgsep = "‾",
-	diff = "╱",
-}
-
 opt.more = true
 
 opt.wrap = false
@@ -51,6 +40,11 @@ local undoDir = vim.fn.expand(vim.o.undodir)
 if not vim.fn.isdirectory(undoDir) then
 	utils.create_dir(undoDir)
 end
+
+opt.fillchars = { fold = " " }
+opt.foldmethod = "indent"
+opt.foldenable = false
+opt.foldlevel = 99
 
 opt.tabstop = 2
 opt.softtabstop = 2
