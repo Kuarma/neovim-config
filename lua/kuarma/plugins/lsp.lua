@@ -3,13 +3,10 @@ return {
 		"folke/lazydev.nvim",
 		ft = "lua",
 		opts = {
-			library = {
-				"nvim-dap-ui",
-				{
-					path = "${3rd}/luv/library",
-					words = { "vim%.uv" },
-				},
-			},
+			library = { "nvim-dap-ui", {
+				path = "${3rd}/luv/library",
+				words = { "vim%.uv" },
+			} },
 		},
 	},
 	{
@@ -69,6 +66,10 @@ return {
 					},
 					{
 						"oxfmt",
+						auto_update = true,
+					},
+					{
+						"marksman",
 						auto_update = true,
 					},
 					{
@@ -138,6 +139,7 @@ return {
 					json = { "oxfmt" },
 					json5 = { "oxfmt" },
 					lua = { "stylua" },
+					md = { "marksman" },
 					cs = { lsp_format = "fallback" },
 					csproj = { lsp_format = "fallback" },
 				},

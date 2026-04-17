@@ -4,7 +4,7 @@
   "blink.compat": { "branch": "main", "commit": "2ed6d9a28b07fa6f3bface818470605f8896408c" },
   "colorful-menu.nvim": { "branch": "master", "commit": "b51a659459df8d078201aefc995db8175ed55e84" },
   "conform.nvim": { "branch": "master", "commit": "086a40dc7ed8242c03be9f47fbcee68699cc2395" },
-  "easy-dotnet.nvim": { "branch": "main", "commit": "2d5dc72f34b90384dd6812231a5c887022dca11c" },
+  "easy-dotnet.nvim": { "branch": "main", "commit": "e0d33c44eba25b53dc73ee8686811d574a37e7a3" },
   "friendly-snippets": { "branch": "main", "commit": "6cd7280adead7f586db6fccbd15d2cac7e2188b9" },
   "fzf": { "branch": "master", "commit": "06e70570e2088605d61f18b127356e5680f7f599" },
   "gitsigns.nvim": { "branch": "main", "commit": "8d82c240f190fc33723d48c308ccc1ed8baad69d" },
