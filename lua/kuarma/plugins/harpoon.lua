@@ -26,6 +26,12 @@ return {
 				:find()
 		end
 
+		for i = 1, 4 do
+			vim.keymap.set("n", "<leader>" .. i, function()
+				harpoon:list():select(i)
+			end, { noremap = true })
+		end
+
 		--stylua: ignore start
 		vim.keymap.set("n", "<leader>sh", function()	toggle_telescope(harpoon:list()) end, { desc = "Open harpoon window" })
 		vim.keymap.set("n",  "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
