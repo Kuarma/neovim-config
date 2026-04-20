@@ -25,6 +25,11 @@ return {
 		end,
 	},
 	{
+		"kylechui/nvim-surround",
+		version = "^4.0.0",
+		event = "VeryLazy",
+	},
+	{
 		"nvim-treesitter/nvim-treesitter",
 		lazy = false,
 		branch = "main",

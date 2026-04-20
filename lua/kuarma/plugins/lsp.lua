@@ -10,6 +10,12 @@ return {
 		},
 	},
 	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = true,
+		opts = {},
+	},
+	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			{
