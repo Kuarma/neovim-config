@@ -8,6 +8,7 @@ return {
 		local dotnet = require("easy-dotnet")
 
 		dotnet.setup({
+			external_terminal = nil,
 			lsp = {
 				enabled = true, -- Enable builtin roslyn lsp
 				preload_roslyn = true, -- Start loading roslyn before any buffer is opened
@@ -61,7 +62,7 @@ return {
 			debugger = {
 				bin_path = vim.fs.joinpath(vim.fn.stdpath("data"), "mason/bin/netcoredbg"),
 				console = "integratedTerminal",
-				-- console = "externalTerminal",
+				apply_value_converters = true,
 				mappings = {
 					open_variable_viewer = { lhs = "T", desc = "open variable viewer" },
 				},

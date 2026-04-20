@@ -7,7 +7,7 @@ return {
 			require("tokyonight").setup({
 				style = "storm",
 				terminal_colors = true,
-				transparent = false,
+				transparent = true,
 				cache = true,
 				on_colors = function(colors)
 					colors.hint = colors.cyan
@@ -15,7 +15,10 @@ return {
 					colors.warning = colors.orange
 					colors.comment = "#eadede"
 				end,
-				on_highlights = function() end,
+				on_highlights = function(hl, colors)
+					hl.Comment = { fg = colors.comment, italic = true }
+					hl.Search = { bg = colors.orange, fg = colors.bg }
+				end,
 				plugins = {
 					auto = true,
 					telescope = true,
@@ -152,6 +155,12 @@ return {
 			image = { enabled = true },
 			picker = { enabled = true },
 			notifier = { enabled = true },
+			terminal = {
+				enabled = true,
+				win = {
+					height = 0.4,
+				},
+			},
 			quickfile = { enabled = true },
 			scope = { enabled = true },
 			scroll = {

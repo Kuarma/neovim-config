@@ -3,7 +3,12 @@ return {
 	dependencies = {
 		{
 			"theHamsta/nvim-dap-virtual-text",
-			opts = { enabled = true },
+			opts = {
+				enabled = true,
+				all_references = true,
+				virt_text_pos = "eol",
+				commented = false,
+			},
 		},
 		{
 			"igorlfs/nvim-dap-view",
@@ -18,15 +23,11 @@ return {
 		"ChristianChiarulli/neovim-codicons",
 	},
 	config = function()
-		local dap, dapui, daptext = require("dap"), require("dapui"), require("nvim-dap-virtual-text")
+		local dap, dapui = require("dap"), require("dapui")
+		local widgets = require("dap.ui.widgets")
 
 		-- .NET specific setup using `easy-dotnet`
 		require("easy-dotnet.netcoredbg").register_dap_variables_viewer()
-
-		daptext.setup({
-			all_references = true,
-			virt_text_pos = "eol",
-		})
 
 		dapui.setup({
 			expand_lines = true,
@@ -64,7 +65,7 @@ return {
 			floating = {
 				max_height = 0.9,
 				max_width = 0.8,
-				border = "single",
+				border = "rounded",
 				mappings = {
 					["close"] = { "q", "<Esc>" },
 				},
@@ -93,24 +94,26 @@ return {
 							id = "console",
 							size = 1,
 						},
-						-- {
-						-- 	id = "easy-dotnet_cpu",
-						-- 	size = 0.25,
-						-- },
-						-- {
-						-- 	id = "easy-dotnet_mem",
-						-- 	size = 0.25,
-						-- },
 					},
-					size = 60,
+					size = 40,
 					position = "left",
 				},
 				{
 					elements = {
-						{ id = "breakpoints", size = 0.75 },
-						{ id = "watches", size = 0.25 },
+						{
+							id = "scopes",
+							size = 1,
+						},
 					},
-					size = 10,
+					size = 40,
+					position = "right",
+				},
+				{
+					elements = {
+						{ id = "breakpoints", size = 0.5 },
+						{ id = "watches", size = 0.5 },
+					},
+					size = 5,
 					position = "bottom",
 				},
 			},
@@ -126,20 +129,15 @@ return {
 
 		vim.fn.sign_define("DapStopped", {
 			text = "󰳟",
-			texthl = "",
-			numhl = "",
+			texthl = "DapStopped",
+			numhl = "DapStopped",
 		})
 
 		vim.fn.sign_define("DapBreakpoint", {
 			text = "🛑",
-			texthl = "",
-			numhl = "",
+			texthl = "DapBreakpoint",
+			numhl = "DapBreakpoint",
 		})
-
-		dap.defaults.fallback.external_terminal = {
-			command = "kitty",
-			args = { "--hold" },
-		}
 
 		dap.listeners.before.attach.dapui_config = function()
 			dapui.open()
@@ -149,12 +147,23 @@ return {
 			dapui.open()
 		end
 
+		dap.listeners.before.event_terminated.dapui_config = function()
+			dapui.close()
+		end
+
+		dap.listeners.before.event_exited.dapui_config = function()
+			dapui.close()
+		end
+
+    --stylua: ignore start
 		vim.keymap.set("n", "<F1>", dapui.toggle, { desc = "Toggle Debug UI" })
 		vim.keymap.set("n", "<F5>", dap.continue, { desc = "Start/continue debugging" })
 		vim.keymap.set("n", "<F2>", dap.step_over, { desc = "Step over" })
 		vim.keymap.set("n", "<F10>", dap.terminate, { desc = "Terminate session" })
-		vim.keymap.set("n", "<C-t>", dapui.eval, { desc = "Evaluate expression under cursor" })
-		vim.keymap.set("n", "<leader>df", dapui.float_element, { desc = "Create floating element" })
+		vim.keymap.set({ "n", "v" }, "<C-t>", function() widgets.preview() end, { desc = "Show variable in preview window" })
+    vim.keymap.set("n", "<leader>df", function() widgets.centered_float(widgets.frames, { border = "rounded", width = 100, height = 20, }) end, { desc = "View call stack" })
+		vim.keymap.set("n", "<leader>dp", dapui.eval, { desc = "Evaluate expression under cursor" })
+		vim.keymap.set({ "n", "v" }, "dP", function() widgets.hover() end, { desc = "Inspect variable under cursor" })
 		vim.keymap.set("n", "<leader>di", dap.step_into, { desc = "Step into" })
 		vim.keymap.set("n", "<leader>do", dap.step_out, { desc = "Step out" })
 		vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
@@ -163,5 +172,6 @@ return {
 		vim.keymap.set("n", "<leader>dr", dap.repl.toggle, { desc = "Toggle DAP REPL" })
 		vim.keymap.set("n", "<leader>dk", dap.up, { desc = "Go up stack frame" })
 		vim.keymap.set("n", "<leader>dj", dap.down, { desc = "Go down stack frame" })
+		--stylua: ignore stop
 	end,
 }
