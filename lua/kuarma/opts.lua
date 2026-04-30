@@ -5,6 +5,11 @@ local opt = vim.opt
 opt.number = true
 opt.relativenumber = false
 
+opt.spell = true
+opt.spelllang = "en_us"
+opt.spelloptions = "camel"
+opt.spellfile = os.getenv("HOME") .. "/.config/nvim/spell/en.utf-8.add"
+
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 opt.more = true
